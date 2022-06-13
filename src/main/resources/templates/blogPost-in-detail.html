@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BlogPost in Detail</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-light">
+
+<div class="container ">
+
+    <h1 class="text-5xl">Post From</h1>
+
+
+    <div>
+        <div class="card m-3" th:object="${oneBlogPost}">
+            <div class="card-body">
+                <h4 class="card-title h4" th:text="${oneBlogPost.title}"></h4>
+                <div>
+                    <p class="m-0"><i class="bi bi-calendar-check"></i><small
+                            th:text="' '+${oneBlogPost.postCreatedDate}"></small>
+                    </p>
+                    <small th:text="'Created By : '+${oneBlogPost.author.userName}"></small>
+                </div>
+
+
+                <p class="card-text mt-5" th:text="${oneBlogPost.body}"></p>
+
+                <input type="hidden" th:field="${oneBlogPost.author.id}">
+
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <a class="m-2" href="#"><i class="bi bi-heart"></i> Like</a>
+                        <a class="m-2" href="#"><i class="bi bi-chat-right"></i> Comments</a>
+                        <a class="m-2" href="#">See more <i class="bi bi-three-dots"></i></a>
+                    </div>
+                    <div class="d-flex m-0">
+
+                        <!--                        <a class="m-2" href="#"><i class="bi bi-trash"></i> Delete</a>-->
+                        <!--                        <a class="m-2" th:href="@{'/blogpost/editPost/'+${post.author.id}"><i class="bi bi-pen"></i> Edit</a>-->
+                        <!--                        <a th:href="@{/blogpost/editPost(postId={oneBlogPost.id})}" class="m-2"><i class="bi bi-pen"></i> Edit Post</a>-->
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="container" th:object="${comment}">
+
+    <div class="h-80 px-7  rounded-[12px] bg-white p-4">
+        <p class="text-xl font-semibold text-blue-900 cursor-pointer transition-all hover:text-black">Add
+            Comment/Questions</p>
+        <textarea th:field="${comment.body}"
+                class="h-40 px-3 text-sm py-1 mt-5 outline-none border-pink-300 w-full resize-none border rounded-lg placeholder:text-sm"
+                placeholder="Add your comments here"></textarea>
+
+        <div class="flex justify-between mt-2">
+
+
+            <form th:action="@{/saveComment/{postId}(postId=${oneBlogPost.id})}"  method="POST">
+
+<!--                <a th:href="@{/postInDetail/{postId}(postId=${oneBlogPost.id})}"-->
+<!--                   class="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">-->
+<!--                    Submit Comment</a>-->
+                <button type="submit" name="submit" value="value" class="btn">submit comment</button>
+
+            </form>
+
+
+
+            <p class="text-sm text-blue-900 ">Enter at least 15 characters</p>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

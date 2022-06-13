@@ -1,0 +1,126 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet"
+          type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous"/>
+</head>
+<body>
+
+<div class="container">
+    <h2>List of Users</h2>
+
+    <hr>
+    <a th:href="@{/authors/register}" class="btn btn-primary">Add User</a>
+    <a th:href="@{/blogpost/allBlogPost}" class="btn btn-primary">see posts</a>
+    <br/><br/>
+    <table class="table table-bordered table-striped" id="userTable">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/authors/page/' + ${currentPage} + '?sortField=id&sortDirection=' + ${reverseSortDir}}">
+                    First name
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/authors/page/' + ${currentPage} + '?sortField=id&sortDirection=' + ${reverseSortDir}}">
+                    Last name
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/authors/page/' + ${currentPage} + '?sortField=id&sortDirection=' + ${reverseSortDir}}">
+                    Email
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/authors/page/' + ${currentPage} + '?sortField=id&sortDirection=' + ${reverseSortDir}}">
+                    User name
+                </a>
+            </th>
+            <th>Roles</th>
+            <th>Edit Roles</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <!--/*@thymesVar id="authors" type="be.intecbrussel.blogcentral.model.Author"*/-->
+        <tr th:each="user: ${authors}">
+
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.userName}"></td>
+            <td th:text="${user.roles}"></td>
+            <td>
+                <a th:href="@{'/authors/editRoles/'+${user.id}}">edit</a>
+            </td>
+
+            <td>
+
+                <a th:href="@{/blogpost/showPostForm(userId=${user.id})}" class="btn btn-info">Create a post</a>
+                <a th:href="@{/authors/update(id=${user.id})}" class="btn btn-info">Update user</a>
+                <a th:href="@{/authors/delete/{id}(id=${user.id})}" class="btn btn-danger">Delete user</a>
+            </td>
+
+
+        </tr>
+        </tbody>
+
+    </table>
+
+    <div>
+        Total Authors:[[${totalAuthors}]] - Page [[${currentPage}]] of [[${totalPages}]]
+        &nbsp;
+
+        <a th:if="${currentPage >1}" th:href="@{'/authors/page/1' + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">First</a>
+        <span th:unless="${currentPage >1}">First</span>
+        &nbsp;
+        <a th:if="${currentPage >1}" th:href="@{'/authors/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Previous</a>
+        <span th:unless="${currentPage >1}">Previous</span>
+        &nbsp; &nbsp;
+
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+            <a th:if="${i != currentPage}"
+               th:href="@{'/authors/page/'+${i}+ '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">[[${i}]]</a>
+            <span th:unless="${i != currentPage}" class="btn btn-primary">[[${i}]]</span>
+
+            &nbsp;  &nbsp;
+
+        </span>
+
+        <a th:if="${currentPage <totalPages}" th:href="@{'/authors/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+
+        &nbsp; &nbsp;
+        <a th:if="${currentPage <totalPages}" th:href="@{'/authors/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+
+
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        $("#userTable").DataTable({-->
+<!--            'aoColumnDefs': [{-->
+<!--                'bSortable': false,-->
+<!--                'aTargets': [-1] /* 1st one, start by the right */-->
+<!--            }]-->
+<!--        });-->
+<!--    })-->
+<!--</script>-->
+
+</body>
+</html>

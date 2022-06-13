@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authority Form</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous"/>
+</head>
+<body>
+
+<form th:action="@{/authors/editRoles/save}" th:object="${authorToEdit}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{firstName}">
+    <input type="hidden" th:field="*{lastName}">
+    <input type="hidden" th:field="*{userName}">
+    <input type="hidden" th:field="*{password}">
+    <input type="hidden" th:field="*{email}">
+    <input type="hidden" th:field="*{street}">
+    <input type="hidden" th:field="*{houseNr}">
+    <input type="hidden" th:field="*{city}">
+    <input type="hidden" th:field="*{zip}">
+    <input type="hidden" th:field="*{createdDate}">
+
+    <div class="form-group row">
+        <label class="col-form-label col-4">Assigned Roles</label>
+        <div>
+            <th:block th:each="role:${rolesList}">
+                <input type="checkbox" th:field="*{roles}" th:value="${role.id}" th:text="${role.name}">
+
+            </th:block>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>
+
+</body>
+</html>

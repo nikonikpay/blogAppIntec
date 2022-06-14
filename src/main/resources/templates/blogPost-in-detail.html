@@ -58,37 +58,10 @@
 
 
     </div>
-
+    <a th:href="@{/commentForm/{postId}(postId=${oneBlogPost.id})}" class="btn btn-info">leave a comment</a>
 </div>
 
-<div class="container" th:object="${comment}">
 
-    <div class="h-80 px-7  rounded-[12px] bg-white p-4">
-        <p class="text-xl font-semibold text-blue-900 cursor-pointer transition-all hover:text-black">Add
-            Comment/Questions</p>
-        <textarea th:field="${comment.body}"
-                class="h-40 px-3 text-sm py-1 mt-5 outline-none border-pink-300 w-full resize-none border rounded-lg placeholder:text-sm"
-                placeholder="Add your comments here"></textarea>
-
-        <div class="flex justify-between mt-2">
-
-
-            <form th:action="@{/saveComment/{postId}(postId=${oneBlogPost.id})}"  method="POST">
-
-<!--                <a th:href="@{/postInDetail/{postId}(postId=${oneBlogPost.id})}"-->
-<!--                   class="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600">-->
-<!--                    Submit Comment</a>-->
-                <button type="submit" name="submit" value="value" class="btn">submit comment</button>
-
-            </form>
-
-
-
-            <p class="text-sm text-blue-900 ">Enter at least 15 characters</p>
-        </div>
-    </div>
-
-</div>
 
 
 </body>

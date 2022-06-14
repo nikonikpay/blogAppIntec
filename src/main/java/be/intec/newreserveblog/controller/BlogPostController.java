@@ -72,8 +72,8 @@ public class BlogPostController {
 
     @GetMapping("/postInDetail/{postId}")
     public String getFullPost(@PathVariable("postId") Long postId, Model model) {
-        BlogPost blogPost = blogPostService.getBlogPostById(postId);
 
+        BlogPost blogPost = blogPostService.getBlogPostById(postId);
         model.addAttribute("oneBlogPost",blogPost);
         return "blogPost-in-detail";
     }

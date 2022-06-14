@@ -18,8 +18,7 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
+
 
 
     @Bean
@@ -50,7 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/")
-
             .permitAll()
             .antMatchers("/resources/**","/css/**").permitAll()
             .antMatchers("/authors/")

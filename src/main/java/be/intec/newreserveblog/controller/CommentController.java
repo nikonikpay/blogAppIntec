@@ -10,10 +10,9 @@ import be.intec.newreserveblog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -35,33 +34,41 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping(value = "/saveComment/{postId}")
-    public String saveComment(@Valid @ModelAttribute("comment") Comment comment,@PathVariable("postId") Long postId,
-                              BindingResult result ) {
 
-//        String currentUserName = SecurityContextHolder.getContext()
-//                                                      .getAuthentication()
-//                                                      .getName();
-//        Author currentAuthor = authorService.getAuthorByUsername(currentUserName);
+    @GetMapping("/commentForm/{postId}")
+    public String showCreateCommentForm(@PathVariable("postId") Long postId, Model model, Comment comment) {
 
-        BlogPost blogPostToAssign= blogPostService.getBlogPostById(postId);
-        System.out.println("This is the post "+blogPostToAssign);
+        BlogPost blogPostToAssign = blogPostService.getBlogPostById(postId);
+        comment.setBlogPost(blogPostToAssign);
 
+        model.addAttribute("blogPostToAssign", blogPostToAssign);
+        model.addAttribute("comment", comment);
 
+        System.out.println("This is Comment object " + comment.getId());
+        System.out.println("This is Comment object " + comment.getBlogPost());
+        return "comment-create-form";
+    }
 
+    //
+    //
+    @PostMapping(value = "/saveComment")
+    public String saveComment(@Valid @ModelAttribute Comment comment, BindingResult result) {
 
+        System.out.println("the object is "+ comment);
         if(result.hasErrors()) {
 
-            System.out.println("Something happened "+ blogPostToAssign);
-//            return "redirect:/postInDetail/" + postId;
+            System.out.println("the object is "+ comment);
+            //            return "redirect:/postInDetail/" + postId;
             return "redirect:/";
         }
 
-        comment.setBlogPost(blogPostToAssign);
+        System.out.println("The object is :"+comment);
         commentService.saveComment(comment);
 
-        return "redirect:/postInDetail/" + postId;
+        return "redirect:/";
     }
+
+
 
 
 }

@@ -1,5 +1,6 @@
 package be.intec.newreserveblog.service.Impl;
 
+import be.intec.newreserveblog.entity.BlogPost;
 import be.intec.newreserveblog.entity.Comment;
 import be.intec.newreserveblog.repository.CommentRepository;
 import be.intec.newreserveblog.service.CommentService;
@@ -42,7 +43,7 @@ public class CommentImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllComments() {
-        return null;
+    public List<Comment> getAllComments(BlogPost blogPost) {
+        return commentRepository.findAllByBlogPost(blogPost);
     }
 }

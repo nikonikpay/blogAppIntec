@@ -13,7 +13,7 @@ public interface CommentService {
     void deleteCommentById(Long commentId);
 
 
-    List<Comment> getAllComments();
+    List<Comment> getAllComments(BlogPost blogPost);
 
 
 }

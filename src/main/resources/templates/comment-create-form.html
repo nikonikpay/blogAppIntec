@@ -21,13 +21,16 @@
     <h3>Add New comment</h3>
     <hr/>
 
-    <form th:action="@{/saveComment}"  th:object="${comment}" method="POST">
+    <form th:action="@{/saveComment}" th:object="${comment}" method="POST">
 
 
         <textarea class="form-control  mb-4" th:field="${comment.body}" type="text" rows="5"></textarea>
         <p th:if="${#fields.hasErrors('body')}" th:errors="${comment.body}" class="text-danger"></p>
         <input type="hidden" th:field="${comment.blogPost.id}"/>
-        <button type="submit" class="btn btn-primary col-2">Save</button>
+        <button type="submit"
+                class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+            Save
+        </button>
         <input type="hidden" th:field="${comment.id}"/>
 
     </form>

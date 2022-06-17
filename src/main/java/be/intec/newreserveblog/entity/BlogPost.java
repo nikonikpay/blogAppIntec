@@ -11,8 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @Entity
@@ -46,5 +46,8 @@ public class BlogPost {
 
     @UpdateTimestamp
     private Timestamp postUpdatedDate;
+
+    @OneToMany(mappedBy = "blogPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LikePost> likePosts;
 
 }
